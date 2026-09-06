@@ -233,7 +233,6 @@
             .nav-right { justify-content: space-between; }
         }
 
-        /* ปรับขยายความยาวและความกว้างของตารางปฏิทินที่นี่ */
         .calendar-wrapper {
             background: linear-gradient(145deg, #1f0b0e, #2b0c11);
             border: 2px solid var(--accent-gold);
@@ -301,7 +300,6 @@
             padding-bottom: 6px;
         }
 
-        /* ขยายความสูงของช่องตาราง (min-height) ให้ยาวขึ้น */
         .cal-cell {
             min-height: 78px;
             background: rgba(20, 7, 9, 0.9);
@@ -1039,7 +1037,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 2. เติมวันที่ในเดือนปัจจุบันจนครบทุกวัน
+            // 2. เติมวันที่ในเดือนปัจจุบันจนครบทุกวัน (ถึงวันที่ 30)
             for (let day = 1; day <= totalDaysInMonth; day++) {
                 const cell = document.createElement('div');
                 
@@ -1062,9 +1060,9 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 3. เติมช่องว่างวันต้นเดือนถัดไปเพื่อให้ตารางลงตัว
+            // 3. เติมช่องว่างวันต้นเดือนถัดไป บังคับแสดงผลแถวตารางให้ครบเต็มรูปแบบ (รวมเป็น 42 ช่อง)
             const totalCellsRendered = firstDayIndex + totalDaysInMonth;
-            const targetTotalCells = totalCellsRendered <= 35 ? 35 : 42;
+            const targetTotalCells = 42; 
             const nextMonthDaysCount = targetTotalCells - totalCellsRendered;
 
             for (let day = 1; day <= nextMonthDaysCount; day++) {
