@@ -321,6 +321,12 @@
             transform: translateY(-2px);
         }
 
+        .cal-cell.today {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid #ffea79;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
         .cal-cell.disabled {
             opacity: 0.35;
             cursor: pointer;
@@ -332,6 +338,11 @@
             font-weight: 800;
             color: #ffffff;
             margin-bottom: 1px;
+        }
+
+        .cal-cell.today .day-number {
+            color: #ffea79;
+            text-shadow: 0 0 5px rgba(255, 234, 121, 0.6);
         }
 
         .cal-cell .event-preview {
@@ -988,7 +999,7 @@
             renderCalendar();
         }
 
-        // ฟังก์ชันเรนเดอร์ปฏิทิน (นำเอาเงื่อนไขไฮไลท์วันปัจจุบันออกแล้ว)
+        // ฟังก์ชันเรนเดอร์ปฏิทิน (นำไฮไลท์วันปัจจุบันกลับมาแล้ว)
         function renderCalendar() {
             const cellsContainer = document.getElementById('cal-cells');
             if (!cellsContainer) return;
@@ -1008,9 +1019,15 @@
             let monthYearText = (currentLang === 'zh') ? `${year}年 ${monthNames['zh'][month]}` : `${monthNames[currentLang][month]} ${yearDisplay}`;
             document.getElementById('cal-month-year').innerText = monthYearText;
             
-            const firstDayIndex = new Date(year, month, 1).getDay(); // วันในสัปดาห์ของวันที่ 1 (0=อาทิตย์)
-            const totalDaysInMonth = new Date(year, month + 1, 0).getDate(); // จำนวนวันทั้งหมดในเดือนนั้น
-            const prevMonthDays = new Date(year, month, 0).getDate(); // จำนวนวันของเดือนก่อนหน้า
+            const firstDayIndex = new Date(year, month, 1).getDay(); 
+            const totalDaysInMonth = new Date(year, month + 1, 0).getDate(); 
+            const prevMonthDays = new Date(year, month, 0).getDate(); 
+
+            // วันนี้จริงตามระบบ (2026-09-06)
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth();
+            const currentDay = today.getDate();
 
             // 1. เติมช่องว่างหัวตารางด้วยวันจากเดือนก่อนหน้า
             for (let i = firstDayIndex - 1; i >= 0; i--) {
@@ -1021,10 +1038,13 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 2. เติมวันทั้งหมดของเดือนปัจจุบัน (1 ถึง วันสุดท้ายของเดือน) แบบปกติ ไม่มีไฮไลท์
+            // 2. เติมวันทั้งหมดของเดือนปัจจุบัน พร้อมเงื่อนไขไฮไลท์วันปัจจุบัน
             for (let day = 1; day <= totalDaysInMonth; day++) {
                 const cell = document.createElement('div');
-                cell.className = 'cal-cell';
+                
+                // ตรวจสอบว่าเป็นวันปัจจุบันหรือไม่ เพื่อใส่คลาส today
+                const isToday = (year === currentYear && month === currentMonth && day === currentDay);
+                cell.className = isToday ? 'cal-cell today' : 'cal-cell';
                 
                 const formattedMonth = String(month + 1).padStart(2, '0');
                 const formattedDay = String(day).padStart(2, '0');
@@ -1042,7 +1062,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 3. เติมช่องว่างท้ายตารางด้วยวันของเดือนถัดไปเพื่อให้ตารางลงตัว 35 หรือ 42 ช่องเสมอ
+            // 3. เติมช่องว่างท้ายตารางด้วยวันของเดือนถัดไป
             const totalCellsRendered = firstDayIndex + totalDaysInMonth;
             const targetTotalCells = totalCellsRendered <= 35 ? 35 : 42;
             const nextMonthDaysCount = targetTotalCells - totalCellsRendered;
