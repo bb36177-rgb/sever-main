@@ -921,7 +921,7 @@
                 lblName: "您的姓名 / 联系方式：",
                 namePlaceholder: "请输入您的姓名...",
                 lblType: "提交类型：",
-                optEval: "⭐ 网站满意度评估",
+                optEval: "⭐ 满意度评估",
                 optIssue: "🛠️ 报告系统错误 / 问题",
                 optSugg: "💡 建议新功能",
                 lblScore: "满意度评分：",
@@ -932,7 +932,7 @@
                 score1: "❌ 非常差 (1星)",
                 lblDetails: "详情 / 反馈内容：",
                 detailsPlaceholder: "在此输入您的详细信息...",
-                submitBtn: "📤 提交评估 /反馈",
+                submitBtn: "📤 提交评估 / 反馈",
                 feedbackListTitle: "📋 系统中记录的反馈与问题列表",
                 noFeedbackText: "系统中尚无反馈记录",
                 scoreLabelText: "满意度评分：",
@@ -999,7 +999,7 @@
             renderCalendar();
         }
 
-        // ฟังก์ชันเรนเดอร์ปฏิทิน (นำไฮไลท์วันปัจจุบันกลับมาแล้ว)
+        // ฟังก์ชันเรนเดอร์ปฏิทินที่แก้ไขตำแหน่งวันให้ตรงตามปฏิทินสากลแล้ว
         function renderCalendar() {
             const cellsContainer = document.getElementById('cal-cells');
             if (!cellsContainer) return;
@@ -1019,6 +1019,7 @@
             let monthYearText = (currentLang === 'zh') ? `${year}年 ${monthNames['zh'][month]}` : `${monthNames[currentLang][month]} ${yearDisplay}`;
             document.getElementById('cal-month-year').innerText = monthYearText;
             
+            // คำนวณวันแรกของเดือน (0 = วันอาทิตย์, 1 = วันจันทร์, ..., 6 = วันเสาร์)
             const firstDayIndex = new Date(year, month, 1).getDay(); 
             const totalDaysInMonth = new Date(year, month + 1, 0).getDate(); 
             const prevMonthDays = new Date(year, month, 0).getDate(); 
@@ -1042,7 +1043,6 @@
             for (let day = 1; day <= totalDaysInMonth; day++) {
                 const cell = document.createElement('div');
                 
-                // ตรวจสอบว่าเป็นวันปัจจุบันหรือไม่ เพื่อใส่คลาส today
                 const isToday = (year === currentYear && month === currentMonth && day === currentDay);
                 cell.className = isToday ? 'cal-cell today' : 'cal-cell';
                 
@@ -1062,7 +1062,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 3. เติมช่องว่างท้ายตารางด้วยวันของเดือนถัดไป
+            // 3. เติมช่องว่างท้ายตารางด้วยวันของเดือนถัดไปให้ครบแถว (รวมทั้งหมดต้องเป็น 35 หรือ 42 ช่อง)
             const totalCellsRendered = firstDayIndex + totalDaysInMonth;
             const targetTotalCells = totalCellsRendered <= 35 ? 35 : 42;
             const nextMonthDaysCount = targetTotalCells - totalCellsRendered;
