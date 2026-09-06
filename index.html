@@ -51,7 +51,7 @@
         }
 
         nav {
-            max-width: 1280px;
+            max-width: 1380px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -175,7 +175,7 @@
         }
 
         .container {
-            max-width: 1280px;
+            max-width: 1380px;
             margin: 0 auto;
             padding: 2.5rem 1.5rem;
             flex: 1;
@@ -222,23 +222,24 @@
 
         .grid-2 {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
+            grid-template-columns: 1.2fr 1.3fr;
             gap: 2rem;
             align-items: start;
         }
 
-        @media(max-width: 950px) {
+        @media(max-width: 1050px) {
             .grid-2 { grid-template-columns: 1fr; }
             nav { flex-direction: column; align-items: stretch; }
             .nav-right { justify-content: space-between; }
         }
 
+        /* ปรับขยายความยาวและความกว้างของตารางปฏิทินที่นี่ */
         .calendar-wrapper {
             background: linear-gradient(145deg, #1f0b0e, #2b0c11);
             border: 2px solid var(--accent-gold);
             border-radius: 20px;
-            padding: 1.2rem;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            padding: 1.8rem;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
             width: 100%;
         }
 
@@ -246,13 +247,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             gap: 10px;
         }
 
         .cal-header h3 {
             color: var(--accent-gold);
-            font-size: 1.15rem;
+            font-size: 1.3rem;
             font-weight: 700;
             white-space: nowrap;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
@@ -261,7 +262,7 @@
         .cal-nav-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex-shrink: 0;
         }
 
@@ -269,8 +270,8 @@
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(170, 119, 28, 0.3));
             border: 2px solid var(--accent-gold);
             color: var(--accent-gold);
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
@@ -289,27 +290,28 @@
         .cal-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
+            gap: 6px;
             text-align: center;
         }
 
         .cal-day-name {
             font-weight: 700;
             color: var(--accent-gold);
-            font-size: 0.8rem;
-            padding-bottom: 4px;
+            font-size: 0.9rem;
+            padding-bottom: 6px;
         }
 
+        /* ขยายความสูงของช่องตาราง (min-height) ให้ยาวขึ้น */
         .cal-cell {
-            min-height: 52px;
+            min-height: 78px;
             background: rgba(20, 7, 9, 0.9);
             border: 1px solid var(--border-gold);
-            border-radius: 6px;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 3px 1px;
+            padding: 6px 3px;
             cursor: pointer;
             transition: all 0.2s ease;
             overflow: hidden;
@@ -324,7 +326,7 @@
         .cal-cell.today {
             background: rgba(212, 175, 55, 0.15);
             border: 2px solid #ffea79;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
         }
 
         .cal-cell.disabled {
@@ -334,10 +336,10 @@
         }
 
         .cal-cell .day-number {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 800;
             color: #ffffff;
-            margin-bottom: 1px;
+            margin-bottom: 3px;
         }
 
         .cal-cell.today .day-number {
@@ -346,24 +348,25 @@
         }
 
         .cal-cell .event-preview {
-            font-size: 0.55rem;
+            font-size: 0.62rem;
             color: #ffea79;
             background: rgba(212, 175, 55, 0.25);
-            padding: 1px 2px;
-            border-radius: 2px;
+            padding: 2px 4px;
+            border-radius: 3px;
             width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             text-align: center;
+            margin-top: 2px;
         }
 
         .admin-panel {
             background: linear-gradient(135deg, rgba(139, 0, 0, 0.25), rgba(31, 11, 14, 0.9));
             border: 2px dashed var(--accent-gold);
-            padding: 14px;
+            padding: 16px;
             border-radius: 12px;
-            margin-top: 1.2rem;
+            margin-top: 1.5rem;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
@@ -372,10 +375,10 @@
             background: #000;
             border: 1px solid var(--border-gold);
             color: #fff;
-            padding: 8px 12px;
+            padding: 9px 14px;
             border-radius: 6px;
-            margin-top: 5px;
-            margin-bottom: 10px;
+            margin-top: 6px;
+            margin-bottom: 12px;
             outline: none;
             font-size: 0.9rem;
             transition: 0.3s;
@@ -614,10 +617,10 @@
                         <div class="cal-day-name" data-i18n="dayFri">ศ</div>
                         <div class="cal-day-name" data-i18n="daySat">ส</div>
                     </div>
-                    <div class="cal-grid" id="cal-cells" style="margin-top: 6px;"></div>
+                    <div class="cal-grid" id="cal-cells" style="margin-top: 8px;"></div>
 
                     <div class="admin-panel">
-                        <strong style="font-size: 0.85rem; color: var(--accent-gold);" data-i18n="adminTitle">⚙️ โหมดจัดการตารางงาน (เพิ่มหลายรายการต่อวัน)</strong>
+                        <strong style="font-size: 0.88rem; color: var(--accent-gold);" data-i18n="adminTitle">⚙️ โหมดจัดการตารางงาน (เพิ่มหลายรายการต่อวัน)</strong>
                         <input type="text" id="event-date" data-i18n-placeholder="datePlaceholderFormat" placeholder="วว/ดด/ปปปป" readonly>
                         <textarea id="event-desc" rows="2" data-i18n-placeholder="eventPlaceholder" placeholder="คลิกวันที่ในปฏิทิน หรือพิมพ์ชื่องานใหม่ที่นี่..."></textarea>
                         <button class="gold-btn" onclick="addEvent()" style="width: 100%;" data-i18n="saveBtn">➕ เพิ่มงานใหม่ในวันนี้</button>
@@ -1036,7 +1039,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 2. เติมวันที่ในเดือนปัจจุบันจนครบทุกวัน (1 ถึง 30 สำหรับกันยายน)
+            // 2. เติมวันที่ในเดือนปัจจุบันจนครบทุกวัน
             for (let day = 1; day <= totalDaysInMonth; day++) {
                 const cell = document.createElement('div');
                 
@@ -1059,7 +1062,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 3. เติมช่องว่างวันต้นเดือนถัดไปเพื่อให้ตารางลงตัว (35 หรือ 42 ช่อง)
+            // 3. เติมช่องว่างวันต้นเดือนถัดไปเพื่อให้ตารางลงตัว
             const totalCellsRendered = firstDayIndex + totalDaysInMonth;
             const targetTotalCells = totalCellsRendered <= 35 ? 35 : 42;
             const nextMonthDaysCount = targetTotalCells - totalCellsRendered;
@@ -1233,7 +1236,7 @@
 
         async function fetchGitHubLastUpdate() {
             const repoOwner = 'bb36177-rgb';
-            const repoName = 'sever';
+            const repoName = 'sever-main';
             const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/commits?per_page=1`;
 
             try {
