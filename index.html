@@ -942,7 +942,7 @@
             }
         };
 
-        let currentCalendarDate = new Date(2026, 8, 6, 15, 0, 0);
+        let currentCalendarDate = new Date(2026, 8, 1); 
         
         const eventsData = JSON.parse(localStorage.getItem('my_hub_events')) || {
             "2026-09-10": ["ทดสอบระบบโค้ดหุ่นยนต์กู้ภัยรอบสุดท้าย"],
@@ -999,7 +999,6 @@
             renderCalendar();
         }
 
-        // ฟังก์ชันสร้างตารางปฏิทินที่แสดงผลครบทุกวัน (กันยายนมี 30 วันเต็ม)
         function renderCalendar() {
             const cellsContainer = document.getElementById('cal-cells');
             if (!cellsContainer) return;
@@ -1028,7 +1027,7 @@
             const currentMonth = today.getMonth();
             const currentDay = today.getDate();
 
-            // 1. เติมช่องว่างต้นเดือน
+            // 1. เติมช่องว่างวันปลายเดือนก่อนหน้า
             for (let i = firstDayIndex - 1; i >= 0; i--) {
                 const prevDayNum = prevMonthLastDay - i;
                 const cell = document.createElement('div');
@@ -1037,7 +1036,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 2. เติมวันที่ทั้งหมดของเดือน (ลูปครบ 1 ถึง 30 สำหรับเดือนกันยายน)
+            // 2. เติมวันที่ในเดือนปัจจุบันจนครบทุกวัน (1 ถึง 30 สำหรับกันยายน)
             for (let day = 1; day <= totalDaysInMonth; day++) {
                 const cell = document.createElement('div');
                 
@@ -1060,7 +1059,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 3. เติมช่องว่างท้ายเดือนให้ตารางเต็มแถว
+            // 3. เติมช่องว่างวันต้นเดือนถัดไปเพื่อให้ตารางลงตัว (35 หรือ 42 ช่อง)
             const totalCellsRendered = firstDayIndex + totalDaysInMonth;
             const targetTotalCells = totalCellsRendered <= 35 ? 35 : 42;
             const nextMonthDaysCount = targetTotalCells - totalCellsRendered;
@@ -1177,7 +1176,7 @@
             const details = document.getElementById('fb-details').value;
             const currentLang = document.getElementById('langSwitch').value;
 
-            const dateStr = `2026-09-06 15:00`;
+            const dateStr = `2026-09-06 16:00`;
             
             feedbackList.unshift({ name, type, score, details, date: dateStr });
             localStorage.setItem('my_hub_feedbacks', JSON.stringify(feedbackList));
@@ -1250,7 +1249,7 @@
                     return;
                 }
             } catch (error) {
-                document.getElementById('last-update-text').innerText = `ปรับปรุงระบบล่าสุดเมื่อ วันที่ 6 กันยายน 2569 เวลา 15:00 น.`;
+                document.getElementById('last-update-text').innerText = `ปรับปรุงระบบล่าสุดเมื่อ วันที่ 6 กันยายน 2569 เวลา 16:00 น.`;
             }
         }
 
