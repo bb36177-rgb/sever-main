@@ -932,7 +932,7 @@
                 score1: "❌ 非常差 (1星)",
                 lblDetails: "详情 / 反馈内容：",
                 detailsPlaceholder: "在此输入您的详细信息...",
-                submitBtn: "📤 提交评估 / 反馈",
+                submitBtn: "📤 提交评估 /反馈",
                 feedbackListTitle: "📋 系统中记录的反馈与问题列表",
                 noFeedbackText: "系统中尚无反馈记录",
                 scoreLabelText: "满意度评分：",
@@ -999,7 +999,7 @@
             renderCalendar();
         }
 
-        // ฟังก์ชันเรนเดอร์ปฏิทินที่แก้ไขการคำนวณวันแรกของเดือนให้สมบูรณ์และถูกต้องตรงเป๊ะ
+        // ฟังก์ชันสร้างตารางปฏิทินที่แสดงผลครบทุกวัน (กันยายนมี 30 วันเต็ม)
         function renderCalendar() {
             const cellsContainer = document.getElementById('cal-cells');
             if (!cellsContainer) return;
@@ -1019,18 +1019,16 @@
             let monthYearText = (currentLang === 'zh') ? `${year}年 ${monthNames['zh'][month]}` : `${monthNames[currentLang][month]} ${yearDisplay}`;
             document.getElementById('cal-month-year').innerText = monthYearText;
             
-            // ใช้ Date 객체 ดึงวันแรกของเดือน (0 = วันอาทิตย์, 1 = วันอังคาร ฯลฯ)
             const firstDayIndex = new Date(year, month, 1).getDay(); 
             const totalDaysInMonth = new Date(year, month + 1, 0).getDate(); 
             const prevMonthLastDay = new Date(year, month, 0).getDate(); 
 
-            // วันปัจจุบันระบบ
             const today = new Date();
             const currentYear = today.getFullYear();
             const currentMonth = today.getMonth();
             const currentDay = today.getDate();
 
-            // 1. เติมช่องว่างหัวตารางด้วยวันจากเดือนก่อนหน้า
+            // 1. เติมช่องว่างต้นเดือน
             for (let i = firstDayIndex - 1; i >= 0; i--) {
                 const prevDayNum = prevMonthLastDay - i;
                 const cell = document.createElement('div');
@@ -1039,7 +1037,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 2. เติมวันทั้งหมดของเดือนปัจจุบัน
+            // 2. เติมวันที่ทั้งหมดของเดือน (ลูปครบ 1 ถึง 30 สำหรับเดือนกันยายน)
             for (let day = 1; day <= totalDaysInMonth; day++) {
                 const cell = document.createElement('div');
                 
@@ -1062,7 +1060,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 3. เติมช่องว่างท้ายตารางด้วยวันของเดือนถัดไปให้ครบแถว (รวมทั้งหมดต้องลงตัวที่ 35 หรือ 42 ช่องพอดี)
+            // 3. เติมช่องว่างท้ายเดือนให้ตารางเต็มแถว
             const totalCellsRendered = firstDayIndex + totalDaysInMonth;
             const targetTotalCells = totalCellsRendered <= 35 ? 35 : 42;
             const nextMonthDaysCount = targetTotalCells - totalCellsRendered;
