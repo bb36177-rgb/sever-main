@@ -998,7 +998,7 @@
             renderCalendar();
         }
 
-        // ฟังก์ชันเรนเดอร์ปฏิทินที่แก้ไขและคำนวณวันครบถ้วน 100% แล้ว
+        // ฟังก์ชันเรนเดอร์ปฏิทินที่แก้ไขสมบูรณ์แล้ว แสดงวันครบ 100% ทุกสัปดาห์
         function renderCalendar() {
             const cellsContainer = document.getElementById('cal-cells');
             if (!cellsContainer) return;
@@ -1019,7 +1019,7 @@
             document.getElementById('cal-month-year').innerText = monthYearText;
             
             const firstDayIndex = new Date(year, month, 1).getDay(); // วันในสัปดาห์ของวันที่ 1 (0=อาทิตย์)
-            const totalDaysInMonth = new Date(year, month + 1, 0).getDate(); // จำนวนวันทั้งหมดในเดือนนั้นๆ (เช่น 30 วันสำหรับกันยายน)
+            const totalDaysInMonth = new Date(year, month + 1, 0).getDate(); // จำนวนวันทั้งหมดในเดือนนั้น
             const prevMonthDays = new Date(year, month, 0).getDate(); // จำนวนวันของเดือนก่อนหน้า
 
             // 1. เติมช่องว่างหัวตารางด้วยวันจากเดือนก่อนหน้า
@@ -1031,7 +1031,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 2. เติมวันทั้งหมดของเดือนปัจจุบัน (ตั้งแต่ 1 ถึง totalDaysInMonth) ครบถ้วนถูกต้อง
+            // 2. เติมวันทั้งหมดของเดือนปัจจุบัน (1 ถึง วันสุดท้ายของเดือน) แบบครบถ้วน
             const todayObj = new Date(2026, 8, 6);
             for (let day = 1; day <= totalDaysInMonth; day++) {
                 const cell = document.createElement('div');
@@ -1057,7 +1057,7 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 3. เติมช่องว่างท้ายตารางด้วยวันของเดือนถัดไปเพื่อให้ตารางลงตัว (35 หรือ 42 ช่อง)
+            // 3. เติมช่องว่างท้ายตารางด้วยวันของเดือนถัดไปเพื่อให้ตารางลงตัว 35 หรือ 42 ช่องเสมอ
             const totalCellsRendered = firstDayIndex + totalDaysInMonth;
             const targetTotalCells = totalCellsRendered <= 35 ? 35 : 42;
             const nextMonthDaysCount = targetTotalCells - totalCellsRendered;
