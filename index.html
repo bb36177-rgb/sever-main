@@ -327,21 +327,11 @@
             background: rgba(10, 3, 5, 0.8);
         }
 
-        .cal-cell.today {
-            border: 2px solid #ffea79;
-            background: rgba(212, 175, 55, 0.2);
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
-        }
-
         .cal-cell .day-number {
             font-size: 0.85rem;
             font-weight: 800;
             color: #ffffff;
             margin-bottom: 1px;
-        }
-
-        .cal-cell.today .day-number {
-            color: #ffea79;
         }
 
         .cal-cell .event-preview {
@@ -998,7 +988,7 @@
             renderCalendar();
         }
 
-        // ฟังก์ชันเรนเดอร์ปฏิทินที่แก้ไขสมบูรณ์แล้ว แสดงวันครบ 100% ทุกสัปดาห์
+        // ฟังก์ชันเรนเดอร์ปฏิทิน (นำเอาเงื่อนไขไฮไลท์วันปัจจุบันออกแล้ว)
         function renderCalendar() {
             const cellsContainer = document.getElementById('cal-cells');
             if (!cellsContainer) return;
@@ -1031,15 +1021,10 @@
                 cellsContainer.appendChild(cell);
             }
 
-            // 2. เติมวันทั้งหมดของเดือนปัจจุบัน (1 ถึง วันสุดท้ายของเดือน) แบบครบถ้วน
-            const todayObj = new Date(2026, 8, 6);
+            // 2. เติมวันทั้งหมดของเดือนปัจจุบัน (1 ถึง วันสุดท้ายของเดือน) แบบปกติ ไม่มีไฮไลท์
             for (let day = 1; day <= totalDaysInMonth; day++) {
                 const cell = document.createElement('div');
                 cell.className = 'cal-cell';
-                
-                if (year === todayObj.getFullYear() && month === todayObj.getMonth() && day === todayObj.getDate()) {
-                    cell.classList.add('today');
-                }
                 
                 const formattedMonth = String(month + 1).padStart(2, '0');
                 const formattedDay = String(day).padStart(2, '0');
